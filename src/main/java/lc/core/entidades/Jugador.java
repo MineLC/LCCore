@@ -1,0 +1,77 @@
+package lc.core.entidades;
+
+import org.bukkit.entity.Player;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+public class Jugador {
+    private static final Map<String, Jugador> jugadores = new HashMap<>();
+
+    private final String nombre;
+    private UUID uuid;
+    private Player bukkitInstance;
+    private int coins;
+    private RangoInfo rankInfo;
+    public static Jugador getJugador(String nombre){
+        if(jugadores.containsKey(nombre)) return jugadores.get(nombre);
+        Jugador j = new Jugador(nombre);
+        jugadores.put(nombre, j);
+        return j;
+    }
+
+    public static Jugador getJugador(Player player){
+        String nombre = player.getName();
+        if(jugadores.containsKey(nombre)) return jugadores.get(nombre);
+        Jugador j = new Jugador(player);
+        jugadores.put(nombre, j);
+        return j;
+    }
+
+    private Jugador(String nombre){
+        this.nombre = nombre;
+    }
+
+    private Jugador(Player bukkitPlayer){
+        setBukkitInstance(bukkitPlayer);
+        this.nombre = bukkitPlayer.getName();
+        setUuid(bukkitPlayer.getUniqueId());
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Player getBukkitInstance() {
+        return bukkitInstance;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setBukkitInstance(Player bukkitInstance) {
+        this.bukkitInstance = bukkitInstance;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public RangoInfo getRankInfo() {
+        return rankInfo;
+    }
+
+    public void setRankInfo(RangoInfo rankInfo) {
+        this.rankInfo = rankInfo;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+}
