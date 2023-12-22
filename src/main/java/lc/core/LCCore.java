@@ -36,6 +36,7 @@ public final class LCCore extends JavaPlugin {
             Bukkit.shutdown();
 
         }
+        Util.console("&a[Core] ¡Conexión realizada con la base de datos!");
         checkearConexion();
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
     }

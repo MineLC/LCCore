@@ -125,7 +125,7 @@ public class Database {
             String queryBuilder = "INSERT INTO `RangoInfo` (`Player`, `Rank`, `Puntos`, `Duration`, `NameColor`, `HideRank`) VALUES (?, ?, ?, ?, ?, ?);";
             statement = connection.prepareStatement(queryBuilder);
             statement.setString(1, jugador.getNombre());
-            statement.setString(2, Rango.DEFAULT.toString());
+            statement.setString(2, Rango.DEFAULT.name().toUpperCase());
             statement.setInt(3, 0);
             statement.setLong(4, 0);
             statement.setString(5, "&7");
