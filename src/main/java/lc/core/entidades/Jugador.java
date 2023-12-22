@@ -70,8 +70,50 @@ public class Jugador {
     public int getCoins() {
         return coins;
     }
-
     public void setCoins(int coins) {
         this.coins = coins;
+    }
+
+    public boolean noTieneRango(){
+        return getRankInfo().getRango().equals(Rango.DEFAULT);
+    }
+
+    public boolean isVIP(){
+        return getRankInfo().getRango().equals(Rango.VIP) || isSVIP();
+    }
+    public boolean isSVIP(){
+        return getRankInfo().getRango().equals(Rango.SVIP) || isELITE();
+    }
+
+    public boolean isELITE(){
+        return getRankInfo().getRango().equals(Rango.ELITE) || isRUBY();
+    }
+    public boolean isRUBY(){
+        return getRankInfo().getRango().equals(Rango.RUBY) || isHelper();
+    }
+
+    public boolean isHelper(){
+        return getRankInfo().getRango().equals(Rango.HELPER) || isModerador();
+    }
+
+    public boolean isModerador(){
+        return getRankInfo().getRango().equals(Rango.MOD) || isAdmin();
+    }
+
+    public boolean isMiniYT(){
+        return getRankInfo().getRango().equals(Rango.MINIYT);
+    }
+
+    public boolean isYoutuber(){
+        return getRankInfo().getRango().equals(Rango.YOUTUBER);
+    }
+
+    public boolean isStreamer(){
+        return getRankInfo().getRango().equals(Rango.STREAMER);
+    }
+
+    public boolean isAdmin(){
+        return getRankInfo().getRango().equals(Rango.ADMIN) ||
+                getRankInfo().getRango().equals(Rango.OWNER);
     }
 }
