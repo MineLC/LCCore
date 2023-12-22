@@ -5,6 +5,7 @@ import lc.core.utilidades.Util;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +15,8 @@ public class LCConfig {
     private final String nombre;
     private FileConfiguration config;
     private File file;
-    private final LCCore plugin;
-    public LCConfig(String nombre, LCCore plugin){
+    private final Plugin plugin;
+    public LCConfig(String nombre, Plugin plugin){
         this.nombre = nombre;
         this.plugin = plugin;
         registerConfig();

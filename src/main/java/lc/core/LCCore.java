@@ -13,7 +13,6 @@ public final class LCCore extends JavaPlugin {
 
     private static LCCore instance;
     public static LCConfig databaseConfig;
-    public static LCConfig minelcConfig;
     public static boolean selfCrashing = false;
 
     @Override
@@ -24,7 +23,6 @@ public final class LCCore extends JavaPlugin {
     @Override
     public void onEnable() {
         databaseConfig = new LCConfig("database", this);
-        minelcConfig = new LCConfig("minelc", this);
         Database.loadDatabaseConfig(databaseConfig.getConfig());
 
         try {
