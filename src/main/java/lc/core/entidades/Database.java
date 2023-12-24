@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
+import java.util.LinkedHashMap;
 
 public class Database {
 
@@ -375,5 +376,36 @@ public class Database {
         }finally {
             close(statement);
         }
+    }
+
+
+    public static LinkedHashMap<String, Integer> getTop(int limit, String toptype, String table) {
+        LinkedHashMap<String, Integer> topScore = new LinkedHashMap<String, Integer>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder();
+            queryBuilder.append("SELECT ");
+            queryBuilder.append("`Player`, "+toptype+" ");
+            queryBuilder.append("FROM ");
+            queryBuilder.append("`"+table+"` ");
+            queryBuilder.append("ORDER BY "+toptype+" DESC LIMIT ?;");
+
+            preparedStatement = connection.prepareStatement(queryBuilder.toString());
+            preparedStatement.setInt(1, limit);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet != null && resultSet.next()) {
+                topScore.put(resultSet.getString("Player"), resultSet.getInt(toptype));
+            }
+        } catch (final Exception Exception) {
+            Exception.printStackTrace();
+        } finally {
+            close(resultSet);
+            close(preparedStatement);
+        }
+
+        return topScore;
     }
 }
