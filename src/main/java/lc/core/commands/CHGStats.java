@@ -48,7 +48,7 @@ public class CHGStats implements CommandExecutor {
 
         Bukkit.getScheduler().runTaskLater(LCCore.get(), () -> {
             CHGInfo chgInfo = jugador.getChgInfo();
-            Util.sendMessage(sender, "&e&m=======&r&eCHG (" + player.getName() + ")&e&m=======");
+            Util.sendMessage(sender, "&e&m=============&r&eCHG (" + player.getName() + ")&e&m=============");
             Util.sendMessage(sender, "&e  Part. Jugadas: &a" + chgInfo.getPlayeds());
             Util.sendMessage(sender, "&e  Victorias: &a" + chgInfo.getWins());
             Util.sendMessage(sender, "&e  Asesinatos: &a" + chgInfo.getKit());
