@@ -48,12 +48,15 @@ public class CHGStats implements CommandExecutor {
 
         Bukkit.getScheduler().runTaskLater(LCCore.get(), () -> {
             CHGInfo chgInfo = jugador.getChgInfo();
+            int nameLenght = player.getName().length() + 3;
             Util.sendMessage(sender, "&e&m=============&r&eCHG (" + player.getName() + ")&e&m=============");
             Util.sendMessage(sender, "&e  Part. Jugadas: &a" + chgInfo.getPlayeds());
             Util.sendMessage(sender, "&e  Victorias: &a" + chgInfo.getWins());
             Util.sendMessage(sender, "&e  Asesinatos: &a" + chgInfo.getKit());
             Util.sendMessage(sender, "&e  Racha de victorias: &a" + chgInfo.getRacha());
-            Util.sendMessage(sender, "&e&m========================================");
+            StringBuilder lineFinal = new StringBuilder("&e&m==========================");
+            for(int i = 0 ; i < nameLenght ; i++) lineFinal.append("=");
+            Util.sendMessage(sender, lineFinal.toString());
             Util.sendMessage(sender, "&e  Rango: &a" + StringUtils.capitalize(chgInfo.getRank().name()));
             Util.sendMessage(sender, "&e  Fama: &a" + chgInfo.getFama());
 
