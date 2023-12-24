@@ -234,7 +234,7 @@ public class Database {
         }
     }
 
-    public static void savePlayerSV_CHG(final Jugador jug) {
+    public static void saveCHGInfo(final Jugador jug) {
         CHGInfo info = jug.getChgInfo();
         Bukkit.getScheduler().runTaskAsynchronously(LCCore.get(), () -> {
             PreparedStatement preparedStatement = null;
