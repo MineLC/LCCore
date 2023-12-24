@@ -1,3 +1,6 @@
 name: LCCore
 version: '${version}'
 main: lc.core.LCCore
+commands:
+  chg:
+    description: Ver estadistica de CHG

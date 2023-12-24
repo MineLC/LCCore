@@ -28,6 +28,8 @@ dependencies {
 
 }
 
+
+
 def targetJavaVersion = 8
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
@@ -44,6 +46,10 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
 processResources {
     def props = [version: version]
     inputs.properties props
@@ -52,3 +58,4 @@ processResources {
         expand props
     }
 }
+

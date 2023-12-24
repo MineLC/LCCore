@@ -1,5 +1,6 @@
 package lc.core.entidades;
 
+import lc.core.entidades.minijuegos.CHGInfo;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public class Jugador {
     private Player bukkitInstance;
     private int coins;
     private RangoInfo rankInfo;
+    private CHGInfo chgInfo;
+
     public static Jugador getJugador(String nombre){
         if(jugadores.containsKey(nombre)) return jugadores.get(nombre);
         Jugador j = new Jugador(nombre);
@@ -21,12 +24,16 @@ public class Jugador {
         return j;
     }
 
+    public void setChgInfo(CHGInfo chgInfo) {
+        this.chgInfo = chgInfo;
+    }
+
     public static Jugador getJugador(Player player){
-        String nombre = player.getName();
-        if(jugadores.containsKey(nombre)) return jugadores.get(nombre);
-        Jugador j = new Jugador(player);
-        jugadores.put(nombre, j);
-        return j;
+        return getJugador(player.getName());
+    }
+
+    public CHGInfo getChgInfo() {
+        return chgInfo;
     }
 
     private Jugador(String nombre){
@@ -70,6 +77,7 @@ public class Jugador {
     public int getCoins() {
         return coins;
     }
+
     public void setCoins(int coins) {
         this.coins = coins;
     }

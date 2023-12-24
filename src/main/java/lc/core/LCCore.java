@@ -1,7 +1,9 @@
 package lc.core;
 
+import lc.core.commands.CHGStats;
 import lc.core.configuration.LCConfig;
 import lc.core.entidades.Database;
+import lc.core.listener.ChatListener;
 import lc.core.listener.PlayerListener;
 import lc.core.utilidades.Util;
 import org.bukkit.Bukkit;
@@ -36,7 +38,9 @@ public final class LCCore extends JavaPlugin {
         }
         Util.console("&a[Core] ¡Conexión realizada con la base de datos!");
         checkearConexion();
+        getCommand("chg").setExecutor(new CHGStats());
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package lc.core.entidades;
 
 import lc.core.LCCore;
+import lc.core.entidades.minijuegos.CHGInfo;
+import lc.core.entidades.minijuegos.CHGRank;
 import lc.core.utilidades.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -51,7 +53,7 @@ public class Database {
         String update_SkyWars = "CREATE TABLE IF NOT EXISTS SV_SKYWARS (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `Kit` VARCHAR(16), `glasscolor` VARCHAR(16), `traileffect` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
         String update_PVPGames = "CREATE TABLE IF NOT EXISTS SV_PVPGAMES (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `stats_monuments_destroyed` INTEGER, `stats_wools_placed` INTEGER, `stats_cores_leakeds` INTEGER, `Kit` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
         String update_bedwars = "CREATE TABLE IF NOT EXISTS SV_BEDWARS (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `Kit` VARCHAR(16), `glasscolor` VARCHAR(16), `traileffect` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
-        String update_chg = "CREATE TABLE IF NOT EXISTS SV_CHG (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `Kit` VARCHAR(16), `placecolor` VARCHAR(16), `traileffect` VARCHAR(16), `winner` BOOLEAN, PRIMARY KEY (`ID`), KEY (`Player`))";
+        String update_chg = "CREATE TABLE IF NOT EXISTS CHGInfo (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `kills` INTEGER, `racha` INTEGER, `jugadas` INTEGER, `ganadas` INTEGER, `fama` INTEGER, `kit` VARCHAR(16), `rango` VARCHAR(16), `winner` BOOLEAN, PRIMARY KEY (`ID`), KEY (`Player`))";
 
         Statement update = connection.createStatement();
         update.execute(update_info);
@@ -131,9 +133,102 @@ public class Database {
             statement.setString(5, "&7");
             statement.setBoolean(6, false);
 
+            jugador.setRankInfo(new RangoInfo(Rango.DEFAULT, 0, false, 0, "&7"));
             statement.executeUpdate();
         } catch (SQLException e) {
             Util.console("&c[Core] Excepcion creando PlayerRankInfo de "+jugador.getNombre()+".");
+        }finally {
+            close(statement);
+        }
+    }
+
+    public static void load_PlayerCHGInfo_ASYNC(Jugador jugador) {
+        Bukkit.getScheduler().runTaskAsynchronously(LCCore.get(), () ->{
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
+            try {
+                String queryBuilder = "SELECT * FROM `CHGInfo` WHERE `Player` = ?;";
+                preparedStatement = connection.prepareStatement(queryBuilder);
+                preparedStatement.setString(1, jugador.getNombre());
+                resultSet = preparedStatement.executeQuery();
+
+                if (resultSet != null && resultSet.next()) {
+                    jugador.setChgInfo(new CHGInfo(
+                            CHGRank.valueOf(resultSet.getString("rango")),
+                            resultSet.getInt("kills"),
+                            resultSet.getInt("ganadas"),
+                            resultSet.getInt("jugadas"),
+                            resultSet.getBoolean("winner"),
+                            resultSet.getString("kit"),
+                            resultSet.getInt("racha"),
+                            resultSet.getInt("fama")
+                    ));
+                }else{
+                    createPlayerCHGInfo(jugador);
+                }
+            } catch (SQLException Exception) {
+                Util.console("&c[Core] Excepcion cargando PlayerCHGInfo de "+jugador.getNombre()+". (ASYNC)");
+            } finally {
+                close(resultSet);
+                close(preparedStatement);
+            }
+
+
+        });
+    }
+
+    public static void load_PlayerCHGInfo(Jugador jugador) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            String queryBuilder = "SELECT * FROM `CHGInfo` WHERE `Player` = ?;";
+            preparedStatement = connection.prepareStatement(queryBuilder);
+            preparedStatement.setString(1, jugador.getNombre());
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet != null && resultSet.next()) {
+                jugador.setChgInfo(new CHGInfo(
+                        CHGRank.valueOf(resultSet.getString("rango")),
+                        resultSet.getInt("kills"),
+                        resultSet.getInt("ganadas"),
+                        resultSet.getInt("jugadas"),
+                        resultSet.getBoolean("winner"),
+                        resultSet.getString("kit"),
+                        resultSet.getInt("racha"),
+                        resultSet.getInt("fama")
+                ));
+            }else{
+                createPlayerCHGInfo(jugador);
+            }
+        } catch (SQLException Exception) {
+            Util.console("&c[Core] Excepcion cargando PlayerCHGInfo de "+jugador.getNombre()+". (ASYNC)");
+        } finally {
+            close(resultSet);
+            close(preparedStatement);
+        }
+
+
+    }
+
+    private static void createPlayerCHGInfo(Jugador jugador) {
+        PreparedStatement statement = null;
+        try {
+            String queryBuilder = "INSERT INTO `CHGInfo` (`Player`, `kills`, `rango`, `kit`, `ganadas`, `jugadas`, `winner`, `fama`, `racha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            statement = connection.prepareStatement(queryBuilder);
+            statement.setString(1, jugador.getNombre());
+            statement.setInt(2, 0);
+            statement.setString(3, "NUEVO");
+            statement.setString(4, "default");
+            statement.setInt(5, 0);
+            statement.setInt(6, 0);
+            statement.setBoolean(7, false);
+            statement.setInt(8, 0);
+            statement.setInt(9, 0);
+
+            jugador.setChgInfo(new CHGInfo(CHGRank.NUEVO, 0, 0, 0, false, "default",0, 0));
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw  new RuntimeException(e);
         }finally {
             close(statement);
         }
