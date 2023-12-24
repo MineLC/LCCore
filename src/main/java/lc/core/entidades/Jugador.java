@@ -116,6 +116,11 @@ public class Jugador {
         return getRankInfo().getRango().equals(Rango.YOUTUBER);
     }
 
+    public boolean isCreadorDeContenido(){
+        Rango r = getRankInfo().getRango();
+        return r == Rango.YOUTUBER || r == Rango.STREAMER || r == Rango.MINIYT;
+    }
+
     public boolean isStreamer(){
         return getRankInfo().getRango().equals(Rango.STREAMER);
     }

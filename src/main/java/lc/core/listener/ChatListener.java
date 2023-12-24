@@ -13,6 +13,8 @@ public class ChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent e){
         if(e.isCancelled()) return;
         Jugador jugador = Jugador.getJugador(e.getPlayer());
-        e.setFormat(Util.color(jugador.getRankInfo().getRango().getAsPrefix()+jugador.getRankInfo().getNameColor()+e.getPlayer().getName()+"&7 » &f"+e.getMessage()));
+        if(jugador.isVIP() || jugador.isCreadorDeContenido())
+            e.setMessage(Util.color(e.getMessage()));
+        e.setFormat(Util.color(jugador.getRankInfo().getRango().getAsPrefix()+jugador.getRankInfo().getNameColor()+e.getPlayer().getName()+"&8 » &f"+e.getMessage()));
     }
 }
