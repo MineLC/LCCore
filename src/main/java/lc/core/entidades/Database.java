@@ -102,7 +102,7 @@ public class Database {
 
                 if (resultSet != null && resultSet.next()) {
                     jugador.setRankInfo(new RangoInfo(
-                            Rango.valueOf(resultSet.getString("Rank")),
+                            Rango.valueOf(resultSet.getString("Rank").toUpperCase()),
                                     resultSet.getLong("Duration"),
                                     resultSet.getBoolean("HideRank"),
                                     resultSet.getInt("Puntos"),
@@ -118,6 +118,33 @@ public class Database {
             }
 
 
+        });
+    }
+
+    public static void savePlayerRango(final Jugador jug) {
+        RangoInfo info = jug.getRankInfo();
+        Bukkit.getScheduler().runTaskAsynchronously(LCCore.get(), () -> {
+            PreparedStatement preparedStatement = null;
+            try {
+                StringBuilder queryBuilder = new StringBuilder();
+                queryBuilder.append("UPDATE `RangoInfo` SET ");
+                queryBuilder.append("`Rank` = ?, `Puntos` = ?, `Duration` = ?, ");
+                queryBuilder.append("`NameColor` = ?, `hideRank` = ? ");
+                queryBuilder.append("WHERE `Player` = ?;");
+
+                preparedStatement = connection.prepareStatement(queryBuilder.toString());
+                preparedStatement.setString(1, info.getRango().name());
+                preparedStatement.setInt(2, info.getPuntos());
+                preparedStatement.setLong(3, info.getDuration());
+                preparedStatement.setString(4, info.getNameColor());
+                preparedStatement.setBoolean(5, info.isHideRank());
+                preparedStatement.setString(6, jug.getNombre());
+                preparedStatement.executeUpdate();
+            } catch (final Exception Exception) {
+                Exception.printStackTrace();
+            } finally {
+                close(preparedStatement);
+            }
         });
     }
 
@@ -255,6 +282,27 @@ public class Database {
                 preparedStatement.setInt(7, info.getFama());
                 preparedStatement.setBoolean(8, info.isWinner());
                 preparedStatement.setString(9, jug.getNombre());
+                preparedStatement.executeUpdate();
+            } catch (final Exception Exception) {
+                Exception.printStackTrace();
+            } finally {
+                close(preparedStatement);
+            }
+        });
+    }
+
+    public static void savePlayerCoins(final Jugador jug) {
+        Bukkit.getScheduler().runTaskAsynchronously(LCCore.get(), () -> {
+            PreparedStatement preparedStatement = null;
+            try {
+                StringBuilder queryBuilder = new StringBuilder();
+                queryBuilder.append("UPDATE `LCoins` SET ");
+                queryBuilder.append("`LCoins` = ? ");
+                queryBuilder.append("WHERE `Player` = ?;");
+
+                preparedStatement = connection.prepareStatement(queryBuilder.toString());
+                preparedStatement.setInt(1, jug.getCoins());
+                preparedStatement.setString(2, jug.getNombre());
                 preparedStatement.executeUpdate();
             } catch (final Exception Exception) {
                 Exception.printStackTrace();
