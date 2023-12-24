@@ -49,13 +49,13 @@ public class CHGStats implements CommandExecutor {
         Bukkit.getScheduler().runTaskLater(LCCore.get(), () -> {
             CHGInfo chgInfo = jugador.getChgInfo();
             Util.sendMessage(sender, "&e&m=======&r&eCHG (" + player.getName() + ")&e&m=======");
-            Util.sendMessage(sender, "&ePart. Jugadas: &a" + chgInfo.getPlayeds());
-            Util.sendMessage(sender, "&eVictorias: &a" + chgInfo.getWins());
-            Util.sendMessage(sender, "&eAsesinatos: &a" + chgInfo.getKit());
-            Util.sendMessage(sender, "&eRacha de victorias: &a" + chgInfo.getRacha());
+            Util.sendMessage(sender, "&e  Part. Jugadas: &a" + chgInfo.getPlayeds());
+            Util.sendMessage(sender, "&e  Victorias: &a" + chgInfo.getWins());
+            Util.sendMessage(sender, "&e  Asesinatos: &a" + chgInfo.getKit());
+            Util.sendMessage(sender, "&e  Racha de victorias: &a" + chgInfo.getRacha());
             Util.sendMessage(sender, "&e&m========================================");
-            Util.sendMessage(sender, "&eRango: &a" + StringUtils.capitalize(chgInfo.getRank().name()));
-            Util.sendMessage(sender, "&eFama: &a" + chgInfo.getFama());
+            Util.sendMessage(sender, "&e  Rango: &a" + StringUtils.capitalize(chgInfo.getRank().name()));
+            Util.sendMessage(sender, "&e  Fama: &a" + chgInfo.getFama());
 
         }, 10L);
         return true;
