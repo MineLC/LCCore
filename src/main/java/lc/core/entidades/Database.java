@@ -234,6 +234,36 @@ public class Database {
         }
     }
 
+    public static void savePlayerSV_CHG(final Jugador jug) {
+        CHGInfo info = jug.getChgInfo();
+        Bukkit.getScheduler().runTaskAsynchronously(LCCore.get(), () -> {
+            PreparedStatement preparedStatement = null;
+            try {
+                StringBuilder queryBuilder = new StringBuilder();
+                queryBuilder.append("UPDATE `CHGInfo` SET ");
+                queryBuilder.append("`kills` = ?, `ganadas` = ?, `racha` = ?, ");
+                queryBuilder.append("`rango` = ?, `jugadas` = ?, `kit` = ?, `fama` = ?, `winner` = ?");
+                queryBuilder.append("WHERE `Player` = ?;");
+
+                preparedStatement = connection.prepareStatement(queryBuilder.toString());
+                preparedStatement.setInt(1, info.getKills());
+                preparedStatement.setInt(2, info.getWins());
+                preparedStatement.setInt(3, info.getRacha());
+                preparedStatement.setString(4, info.getRank().name());
+                preparedStatement.setInt(5, info.getPlayeds());
+                preparedStatement.setString(6, info.getKit());
+                preparedStatement.setInt(7, info.getFama());
+                preparedStatement.setBoolean(8, info.isWinner());
+                preparedStatement.setString(9, jug.getNombre());
+                preparedStatement.executeUpdate();
+            } catch (final Exception Exception) {
+                Exception.printStackTrace();
+            } finally {
+                close(preparedStatement);
+            }
+        });
+    }
+
     private static void close(ResultSet resultSet) {
         if (resultSet != null) {
             try {
