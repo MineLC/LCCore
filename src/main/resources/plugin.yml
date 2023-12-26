@@ -2,5 +2,11 @@ name: LCCore
 version: '${version}'
 main: lc.core.LCCore
 commands:
-  chg:
+  chgstats:
     description: Ver estadistica de CHG
+  lcoins:
+    description: Ver LCoins en tu cuenta
+  rango:
+    description: Ver Información del Rango
+  admin:
+    description: Comando de Admins
