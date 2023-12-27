@@ -19,7 +19,6 @@ public class Rango implements CommandExecutor {
             if(sender instanceof Player){
 
                 Jugador j = Jugador.getJugador((Player) sender);
-                RankInfoQuery.load_PlayerRankInfo(j);
 
                 rankInfo(sender, null);
             }else{
@@ -37,7 +36,6 @@ public class Rango implements CommandExecutor {
             return true;
         }
         Jugador jugador = Jugador.getJugador(player);
-        RankInfoQuery.load_PlayerRankInfo(jugador);
 
         rankInfo(sender, jugador);
         return true;

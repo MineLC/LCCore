@@ -17,7 +17,6 @@ public class LCoins implements CommandExecutor {
             if(sender instanceof Player){
 
                 Jugador j = Jugador.getJugador((Player) sender);
-                LCoinsQuery.load_PlayerCoins(j);
 
                 Util.sendMessage(sender, "&e&lMine&b&lLC &aTienes "+j.getCoins()+" LCoins.");
             }else{
@@ -35,7 +34,6 @@ public class LCoins implements CommandExecutor {
             return true;
         }
         Jugador jugador = Jugador.getJugador(player);
-        LCoinsQuery.load_PlayerCoins(jugador);
 
         Util.sendMessage(sender, "&e&lMine&b&lLC &e"+jugador.getNombre()+" &atiene "+jugador.getCoins()+" LCoins.");
         return true;

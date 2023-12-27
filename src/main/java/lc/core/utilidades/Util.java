@@ -1,9 +1,11 @@
 package lc.core.utilidades;
 
+import com.connorlinfoot.titleapi.TitleAPI;
 import lc.core.entidades.Jugador;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,10 @@ public class Util {
 
     public static void console(String message){
         Bukkit.getConsoleSender().sendMessage(color(message));
+    }
+
+    public static void sendTitle(Player p, int fadeIn, int stay, int fadeOut, String title, String subTitle){
+        TitleAPI.sendTitle(p, fadeIn, stay, fadeOut, color(title), color(subTitle));
     }
 
     public static List<String> getColoredList(Jugador jugador, List<String> list){

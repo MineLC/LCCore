@@ -84,61 +84,59 @@ public class Jugador {
     }
 
     public boolean noTieneRango(){
-        RankInfoQuery.load_PlayerRankInfo(this);
         return getRankInfo().getRango().equals(Rango.DEFAULT);
     }
 
     public boolean isVIP(){
-        RankInfoQuery.load_PlayerRankInfo(this);
         return getRankInfo().getRango().equals(Rango.VIP) || isSVIP();
     }
     public boolean isSVIP(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.SVIP) || isELITE();
     }
 
     public boolean isELITE(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.ELITE) || isRUBY();
     }
     public boolean isRUBY(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.RUBY) || isHelper();
     }
 
     public boolean isHelper(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.HELPER) || isModerador();
     }
 
     public boolean isModerador(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.MOD) || isAdmin();
     }
 
     public boolean isMiniYT(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.MINIYT);
     }
 
     public boolean isYoutuber(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.YOUTUBER);
     }
 
     public boolean isCreadorDeContenido(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         Rango r = getRankInfo().getRango();
         return r == Rango.YOUTUBER || r == Rango.STREAMER || r == Rango.MINIYT;
     }
 
     public boolean isStreamer(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.STREAMER);
     }
 
     public boolean isAdmin(){
-        RankInfoQuery.load_PlayerRankInfo(this);
+
         return getRankInfo().getRango().equals(Rango.ADMIN) ||
                 getRankInfo().getRango().equals(Rango.OWNER);
     }

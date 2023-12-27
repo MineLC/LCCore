@@ -8,5 +8,15 @@ commands:
     description: Ver LCoins en tu cuenta
   rango:
     description: Ver Información del Rango
-  admin:
-    description: Comando de Admins
+  minelc:
+    description: Recargar datos de los jugadores desde la base de datos.
+  setrank:
+    description: Establecer Rango.
+  setduration:
+    description: Establecer duración de Rango.
+  setpuntos:
+    description: Establecer duración de Rango.
+  setnamecolor:
+    description: Establecer duración de Rango.
+  togglehiderank:
+    description: Establecer duración de Rango.

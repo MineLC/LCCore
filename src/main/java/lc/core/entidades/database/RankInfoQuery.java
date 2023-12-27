@@ -103,6 +103,7 @@ public class RankInfoQuery {
         });
     }
 
+
     private static void createPlayerRankInfo(Jugador jugador) {
         PreparedStatement statement = null;
         try {

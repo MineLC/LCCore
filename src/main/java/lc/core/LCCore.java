@@ -1,10 +1,6 @@
 package lc.core;
 
-import lc.core.admin.AdminAction;
-import lc.core.commands.Admin;
-import lc.core.commands.CHGStats;
-import lc.core.commands.LCoins;
-import lc.core.commands.Rango;
+import lc.core.commands.*;
 import lc.core.configuration.LCConfig;
 import lc.core.entidades.database.Database;
 import lc.core.listener.ChatListener;
@@ -14,12 +10,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class LCCore extends JavaPlugin {
 
-    public static Map<String, AdminAction> adminConfirm = new HashMap<>();
     private static LCCore instance;
     public static LCConfig databaseConfig;
     public static boolean selfCrashing = false;
@@ -48,7 +41,14 @@ public final class LCCore extends JavaPlugin {
         getCommand("chgstats").setExecutor(new CHGStats());
         getCommand("lcoins").setExecutor(new LCoins());
         getCommand("rango").setExecutor(new Rango());
-        getCommand("admin").setExecutor(new Admin());
+        getCommand("minelc").setExecutor(new LCReload());
+
+        getCommand("setrank").setExecutor(new RankCommands());
+        getCommand("setduration").setExecutor(new RankCommands());
+        getCommand("setpuntos").setExecutor(new RankCommands());
+        getCommand("togglehiderank").setExecutor(new RankCommands());
+        getCommand("setnamecolor").setExecutor(new RankCommands());
+
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
     }
