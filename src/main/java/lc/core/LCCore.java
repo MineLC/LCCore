@@ -3,7 +3,6 @@ package lc.core;
 import lc.core.commands.*;
 import lc.core.configuration.LCConfig;
 import lc.core.entidades.database.Database;
-import lc.core.listener.ChatListener;
 import lc.core.listener.PlayerListener;
 import lc.core.utilidades.Util;
 import org.bukkit.Bukkit;
@@ -38,19 +37,10 @@ public final class LCCore extends JavaPlugin {
         }
         Util.console("&a[Core] ¡Conexión realizada con la base de datos!");
         checkearConexion();
-        getCommand("chgstats").setExecutor(new CHGStats());
         getCommand("lcoins").setExecutor(new LCoins());
-        getCommand("rango").setExecutor(new Rango());
+        getCommand("vippoints").setExecutor(new VipPoints());
         getCommand("minelc").setExecutor(new LCReload());
-
-        getCommand("setrank").setExecutor(new RankCommands());
-        getCommand("setduration").setExecutor(new RankCommands());
-        getCommand("setpuntos").setExecutor(new RankCommands());
-        getCommand("togglehiderank").setExecutor(new RankCommands());
-        getCommand("setnamecolor").setExecutor(new RankCommands());
-
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
-        getServer().getPluginManager().registerEvents(new ChatListener(), this);
     }
 
     @Override

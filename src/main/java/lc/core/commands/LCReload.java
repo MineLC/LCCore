@@ -2,7 +2,7 @@ package lc.core.commands;
 
 import lc.core.entidades.Jugador;
 import lc.core.entidades.database.LCoinsQuery;
-import lc.core.entidades.database.RankInfoQuery;
+import lc.core.entidades.database.VipPointsQuery;
 import lc.core.utilidades.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -19,7 +19,7 @@ public class LCReload implements CommandExecutor {
         }
         for(Player player : Bukkit.getOnlinePlayers()){
             LCoinsQuery.load_PlayerCoins(Jugador.getJugador(player));
-            RankInfoQuery.load_PlayerRankInfo(Jugador.getJugador(player));
+            VipPointsQuery.load_PlayerVipPoints(Jugador.getJugador(player));
         }
 
         Util.sendMessage(sender, "&e&lMine&b&lLC &a¡Datos recargados éxitosamente!");

@@ -1,22 +1,12 @@
 name: LCCore
 version: '${version}'
 main: lc.core.LCCore
+depend:
+  - PlaceholderAPI
 commands:
-  chgstats:
-    description: Ver estadistica de CHG
+  vippoints:
+    description: Ver VipPoints de tu cuenta
   lcoins:
     description: Ver LCoins en tu cuenta
-  rango:
-    description: Ver Información del Rango
   minelc:
     description: Recargar datos de los jugadores desde la base de datos.
-  setrank:
-    description: Establecer Rango.
-  setduration:
-    description: Establecer duración de Rango.
-  setpuntos:
-    description: Establecer duración de Rango.
-  setnamecolor:
-    description: Establecer duración de Rango.
-  togglehiderank:
-    description: Establecer duración de Rango.

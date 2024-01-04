@@ -2,6 +2,7 @@ package lc.core.utilidades;
 
 import com.connorlinfoot.titleapi.TitleAPI;
 import lc.core.entidades.Jugador;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,8 @@ public class Util {
     }
 
     public static void sendMessage(CommandSender sender, String message){
-        sender.sendMessage(color(message));
+        if(sender instanceof Player) sender.sendMessage(color(setPlaceholder((Player) sender, message)));
+        else sender.sendMessage(color(message));
     }
 
     public static void console(String message){
@@ -24,10 +26,10 @@ public class Util {
     }
 
     public static void sendTitle(Player p, int fadeIn, int stay, int fadeOut, String title, String subTitle){
-        TitleAPI.sendTitle(p, fadeIn, stay, fadeOut, color(title), color(subTitle));
+        TitleAPI.sendTitle(p, fadeIn, stay, fadeOut, color(setPlaceholder(p, title)), color(setPlaceholder(p, subTitle)));
     }
 
-    public static List<String> getColoredList(Jugador jugador, List<String> list){
+    public static List<String> getColoredList(Player jugador, List<String> list){
         List<String> coloredList = new ArrayList<>();
         for(String str : list){
             if(jugador != null)
@@ -37,7 +39,7 @@ public class Util {
         return coloredList;
     }
 
-    public static List<String> getCenteredList(Jugador jugador, List<String> list){
+    public static List<String> getCenteredList(Player jugador, List<String> list){
         List<String> ret = new ArrayList<>();
         for(String str : list){
             if(jugador != null)
@@ -47,8 +49,7 @@ public class Util {
         return ret;
     }
 
-    public static String setPlaceholder(Jugador jugador, String string){
-        return string.replaceAll("%prefix%", jugador.getRankInfo()
-                .getRango().getAsPrefix()).replaceAll("%name%", jugador.getNombre());
+    public static String setPlaceholder(Player jugador, String string){
+        return PlaceholderAPI.setPlaceholders(jugador, string);
     }
 }

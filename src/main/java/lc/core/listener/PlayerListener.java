@@ -1,9 +1,8 @@
 package lc.core.listener;
 
-import lc.core.entidades.database.Database;
 import lc.core.entidades.Jugador;
 import lc.core.entidades.database.LCoinsQuery;
-import lc.core.entidades.database.RankInfoQuery;
+import lc.core.entidades.database.VipPointsQuery;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -15,7 +14,7 @@ public class PlayerListener implements Listener {
     public void onPreLogin(AsyncPlayerPreLoginEvent event){
         String name = event.getName();
         Jugador jugador = Jugador.getJugador(name);
-        RankInfoQuery.load_PlayerRankInfo_ASYNC(jugador);
+        VipPointsQuery.load_PlayerVipPoints_ASYNC(jugador);
         LCoinsQuery.load_PlayerCoins_ASYNC(jugador);
     }
 

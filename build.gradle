@@ -9,6 +9,9 @@ repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
     maven {
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
+    maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
 
         // As of Gradle 5.1, you can limit this to only those
@@ -26,7 +29,10 @@ repositories {
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT" //ull Spigot server with no shadowing. Requires mavenLocal.
+    compileOnly 'me.clip:placeholderapi:2.11.5'
     implementation 'com.github.ConnorLinfoot:TitleAPI:1.8.1'
+
+
 
 }
 
