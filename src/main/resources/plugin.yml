@@ -3,7 +3,10 @@ version: '${version}'
 main: lc.core.LCCore
 depend:
   - PlaceholderAPI
+  - Vault
 commands:
+  eco:
+    description: Comando para manejar la economia
   vippoints:
     description: Ver VipPoints de tu cuenta
   lcoins:

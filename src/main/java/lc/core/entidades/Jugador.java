@@ -1,10 +1,12 @@
 package lc.core.entidades;
 
+import lc.core.LCCore;
 import lc.core.entidades.minijuegos.CHGInfo;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Jugador {
@@ -83,59 +85,59 @@ public class Jugador {
     }
 
     public boolean noTieneRango(){
-        return bukkitInstance.hasPermission("DEFAULT");
+        return LCCore.permission.has(bukkitInstance, "minelc.default");
     }
 
     public boolean isVIP(){
-        return bukkitInstance.hasPermission("VIP") || isSVIP();
+        return LCCore.permission.has(bukkitInstance,"minelc.vip") || isSVIP();
     }
     public boolean isSVIP(){
 
-        return bukkitInstance.hasPermission("SVIP") || isELITE();
+        return LCCore.permission.has(bukkitInstance, "minelc.svip") || isELITE();
     }
 
     public boolean isELITE(){
 
-        return bukkitInstance.hasPermission("ELITE") || isRUBY();
+        return LCCore.permission.has(bukkitInstance, "minelc.elite")  || isRUBY();
     }
     public boolean isRUBY(){
 
-        return bukkitInstance.hasPermission("RUBY") || isHelper();
+        return LCCore.permission.has(bukkitInstance, "minelc.ruby");
     }
 
     public boolean isHelper(){
-
-        return bukkitInstance.hasPermission("HELPER") || isModerador();
+        return LCCore.permission.has(bukkitInstance, "minelc.helper") || isModerador();
     }
 
     public boolean isModerador(){
 
-        return bukkitInstance.hasPermission("MOD") || isAdmin();
+        return LCCore.permission.has(bukkitInstance, "minelc.mod") || isAdmin();
     }
 
     public boolean isMiniYT(){
 
-        return bukkitInstance.hasPermission("MINIYT");
+        return LCCore.permission.has(bukkitInstance, "minelc.miniyt");
     }
 
     public boolean isYoutuber(){
 
-        return bukkitInstance.hasPermission("YOUTUBER");
+        return LCCore.permission.has(bukkitInstance, "minelc.yt");
     }
 
     public boolean isCreadorDeContenido(){
 
-        return bukkitInstance.hasPermission("YOUTUBER") || bukkitInstance.hasPermission("STREAMER") || bukkitInstance.hasPermission("MINIYT");
+        return isYoutuber() || isStreamer() || isMiniYT();
     }
 
-    public boolean isStreamer(){
+    public boolean isStreamer() {
 
-        return bukkitInstance.hasPermission("STREAMER");
+        return LCCore.permission.has(bukkitInstance, "minelc.streamer");
     }
 
     public boolean isAdmin(){
 
-        return bukkitInstance.hasPermission("ADMIN") ||
-                bukkitInstance.hasPermission("OWNER");
+        return LCCore.permission.has(bukkitInstance, "minelc.admin") ||
+                LCCore.permission.has(bukkitInstance, "minelc.owner");
     }
+
 }
