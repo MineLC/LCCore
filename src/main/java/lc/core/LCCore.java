@@ -2,6 +2,7 @@ package lc.core;
 
 import lc.core.commands.*;
 import lc.core.configuration.LCConfig;
+import lc.core.entidades.LCECOPAPI;
 import lc.core.entidades.database.Database;
 import lc.core.listener.CommandsReplacer;
 import lc.core.listener.PlayerListener;
@@ -51,6 +52,7 @@ public final class LCCore extends JavaPlugin {
         getCommand("minelc").setExecutor(new LCReload());
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new CommandsReplacer(), this);
+        new LCECOPAPI().register();
     }
 
     @Override

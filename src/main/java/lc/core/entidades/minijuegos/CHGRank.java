@@ -17,8 +17,12 @@ public enum CHGRank {
     LEGENDARIO(13),
     MÍTICO(14);
 
-    private int priority;
+    private final int priority;
     CHGRank(int priority){
         this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }
