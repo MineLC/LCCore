@@ -19,7 +19,7 @@ public class Jugador {
     private CHGInfo chgInfo;
 
     public static void removeJugador(Jugador j){
-        jugadores.remove(j);
+        jugadores.remove(j.getNombre());
     }
 
     public static Jugador getJugador(String nombre){

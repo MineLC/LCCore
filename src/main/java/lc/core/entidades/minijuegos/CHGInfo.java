@@ -1,7 +1,5 @@
 package lc.core.entidades.minijuegos;
 
-import lc.core.entidades.Jugador;
-
 public class CHGInfo {
 
     private CHGRank rank = CHGRank.NUEVO;
@@ -23,9 +21,6 @@ public class CHGInfo {
         this.racha = racha;
         this.fama = fama;
     }
-
-
-
     public CHGRank getRank() {
         return rank;
     }
