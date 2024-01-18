@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Jugador {
@@ -18,6 +17,10 @@ public class Jugador {
     private int coins;
     private int vippoints;
     private CHGInfo chgInfo;
+
+    public static void removeJugador(Jugador j){
+        jugadores.remove(j);
+    }
 
     public static Jugador getJugador(String nombre){
         if(jugadores.containsKey(nombre)) return jugadores.get(nombre);
