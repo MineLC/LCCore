@@ -1,6 +1,7 @@
 package lc.core.entidades.minijuegos;
 
 public enum CHGRank {
+    //patas
     NUEVO(0),
     APRENDIZ(1),
     HÉROE(2),
