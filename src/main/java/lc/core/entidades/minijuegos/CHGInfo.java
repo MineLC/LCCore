@@ -4,6 +4,7 @@ public class CHGInfo {
 
     private CHGRank rank = CHGRank.NUEVO;
     private int kills = 0;
+    private int muertes = 0;
     private int wins = 0;
     private int playeds = 0;
     private boolean winner = false;
@@ -11,8 +12,9 @@ public class CHGInfo {
     private int racha;
     private int fama;
 
-    public CHGInfo(CHGRank rank, int kills, int wins, int playeds, boolean winner, String kit, int racha, int fama) {
+    public CHGInfo(CHGRank rank, int kills,int muertes, int wins, int playeds, boolean winner, String kit, int racha, int fama) {
         this.rank = rank;
+        this.muertes = muertes;
         this.kills = kills;
         this.wins = wins;
         this.playeds = playeds;
@@ -32,6 +34,14 @@ public class CHGInfo {
 
     public int getKills() {
         return kills;
+    }
+
+    public int getMuertes() {
+        return muertes;
+    }
+
+    public void setMuertes(int muertes) {
+        this.muertes = muertes;
     }
 
     public void setKills(int kills) {
