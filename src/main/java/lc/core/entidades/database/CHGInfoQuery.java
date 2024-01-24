@@ -120,18 +120,18 @@ public class CHGInfoQuery {
     private static void createPlayerCHGInfo(Jugador jugador) {
         PreparedStatement statement = null;
         try {
-            String queryBuilder = "INSERT INTO `CHGInfo` (`Player`, `kills`, `muertes`, `rango`, `kit`, `ganadas`, `jugadas`, `winner`, `fama`, `racha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String queryBuilder = "INSERT INTO `CHGInfo` (`Player`, `kills`, `muertes`, `rango`, `kit`, `ganadas`, `jugadas`, `winner`, `fama`, `racha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             statement = connection.prepareStatement(queryBuilder);
             statement.setString(1, jugador.getNombre());
             statement.setInt(2, 0);
             statement.setInt(3, 0);
-            statement.setString(3, "NUEVO");
-            statement.setString(4, "default");
-            statement.setInt(5, 0);
+            statement.setString(4, "NUEVO");
+            statement.setString(5, "default");
             statement.setInt(6, 0);
-            statement.setBoolean(7, false);
-            statement.setInt(8, 0);
+            statement.setInt(7, 0);
+            statement.setBoolean(8, false);
             statement.setInt(9, 0);
+            statement.setInt(10, 0);
 
             jugador.setChgInfo(new CHGInfo(CHGRank.NUEVO, 0, 0, 0, 0, false, "default",0, 0));
             statement.executeUpdate();

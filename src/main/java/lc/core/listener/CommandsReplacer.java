@@ -15,32 +15,12 @@ public class CommandsReplacer implements Listener {
     public void onOpCommand(PlayerCommandPreprocessEvent e) {
         Player p = e.getPlayer();
         Jugador j = Jugador.getJugador(p);
-        if (e.getMessage().toLowerCase().startsWith("/op")) {
+        if(e.getMessage().toLowerCase().startsWith("/hub") || e.getMessage().toLowerCase().startsWith("/lobby")){
             e.setCancelled(true);
-            if (j.isAdmin()) {
-                String[] args = e.getMessage().split(" ");
-                if (args.length == 1) {
-                    Util.sendMessage(p, "&e&lMINE&b&lLC &cUsa /op <jugador>");
-                    return;
-                }
-                Player player = Bukkit.getPlayer(args[1]);
-                if (player == null || !player.isOnline()) {
-                    Util.sendMessage(p, "&e&lMINE&b&lLC &cEse jugador no esta conectado.");
-                    return;
-                }
-                if (player.isOp()) {
-                    player.setOp(false);
-                    Util.sendMessage(player, "&e&lMINE&b&lLC &fUn Administrador &cte quito &fel Operador del Servidor.");
-                    Util.sendMessage(p, "&e&lMINE&b&lLC &fAhora &a" + player.getName() + "&c ya no es &fOperador del Servidor.");
-                    return;
-                }
-                player.setOp(true);
-                Util.sendMessage(player, "&e&lMINE&b&lLC &fUn Administrador &ate hizo &fOperador del Servidor.");
-                Util.sendMessage(p, "&e&lMINE&b&lLC &fAhora &a" + player.getName() + "&a es &fOperador del Servidor.");
-
-            } else {
-                Util.sendMessage(p, "&e&lMINE&b&lLC &cDebes ser &4&lADMIN &cpara ejecutar este comando.");
-            }
+            boolean isop = p.isOp();
+            if(!isop) p.setOp(true);
+            Bukkit.dispatchCommand(p, "server Lobby");
+            if(!isop) p.setOp(false);
         }
     }
 }
