@@ -50,11 +50,15 @@ public class Database {
         String update_SkyWars = "CREATE TABLE IF NOT EXISTS SV_SKYWARS (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `Kit` VARCHAR(16), `glasscolor` VARCHAR(16), `traileffect` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
         String update_PVPGames = "CREATE TABLE IF NOT EXISTS SV_PVPGAMES (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `stats_monuments_destroyed` INTEGER, `stats_wools_placed` INTEGER, `stats_cores_leakeds` INTEGER, `Kit` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
         String update_bedwars = "CREATE TABLE IF NOT EXISTS SV_BEDWARS (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `stats_kills` INTEGER, `stats_deaths` INTEGER, `stats_topkillstreak` INTEGER, `stats_level` INTEGER, `stats_partidas_jugadas` INTEGER, `stats_partidas_ganadas` INTEGER, `Kit` VARCHAR(16), `glasscolor` VARCHAR(16), `traileffect` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
+
+        String update_eggwars_kits = "CREATE TABLE IF NOT EXISTS EGGKits (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24), Kit VARCHAR(64), PRIMARY KEY (`ID`), KEY (`Player`))";
+        String update_eggwars = "CREATE TABLE IF NOT EXISTS EGGInfo (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `kills` INTEGER, `muertes` INTEGER, `racha` INTEGER, `level` INTEGER, `jugadas` INTEGER, `ganadas` INTEGER, `Kit` VARCHAR(16), `glasscolor` VARCHAR(16), `traileffect` VARCHAR(16), PRIMARY KEY (`ID`), KEY (`Player`))";
         String update_chg = "CREATE TABLE IF NOT EXISTS CHGInfo (`ID` INTEGER AUTO_INCREMENT UNIQUE, `Player` VARCHAR(24) UNIQUE, `kills` INTEGER, `racha` INTEGER, `jugadas` INTEGER, `ganadas` INTEGER, `fama` INTEGER, `kit` VARCHAR(16), `rango` VARCHAR(16), `winner` BOOLEAN, PRIMARY KEY (`ID`), KEY (`Player`))";
 
         Statement update = connection.createStatement();
         update.execute(update_info);
-        update.execute(update_bedwars);
+        update.execute(update_eggwars);
+        update.execute(update_eggwars_kits);
         update.execute(update_chg);
         update.execute(update_HG);
         update.execute(update_coins);

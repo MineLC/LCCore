@@ -2,6 +2,7 @@ package lc.core.entidades;
 
 import lc.core.LCCore;
 import lc.core.entidades.minijuegos.CHGInfo;
+import lc.core.entidades.minijuegos.EGGInfo;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class Jugador {
     private int coins;
     private int vippoints;
     private CHGInfo chgInfo;
+    private EGGInfo eggInfo;
 
     public static void removeJugador(Jugador j){
         jugadores.remove(j.getNombre());
@@ -143,4 +145,11 @@ public class Jugador {
                 LCCore.permission.has(bukkitInstance, "minelc.owner");
     }
 
+    public EGGInfo getEGGInfo() {
+        return eggInfo;
+    }
+
+    public void setEGGInfo(EGGInfo eggInfo) {
+        this.eggInfo = eggInfo;
+    }
 }
